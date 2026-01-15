@@ -1,0 +1,38 @@
+secret_word = "Python"
+attempts = 6
+guessed_history = [] # We create an empty list to store used letters
+
+print("Welcome to Hangman 2.0!")
+
+# This loop runs as long as attempts are greater than 0
+while attempts > 0:
+    print("---")
+    user_letter = input(f"You have {attempts} attempts left. Guess a letter: ")
+
+    # Check 1: Is it a valid single letter?
+    if len(user_letter) == 1 and user_letter.isalpha():
+        
+        # Check 2: Has this letter been used before? (Point 2 & 3)
+        if user_letter in guessed_history:
+            print(f"You already guessed '{user_letter}'. Try a new one!")
+            # We use 'continue' to skip the rest and go back to the start of the loop
+            # This ensures attempts do NOT decrease.
+            continue
+        
+        # If it's a new, valid letter, add it to history
+        guessed_history.append(user_letter)
+        
+        # Decrease attempts (Point 1: regardless of correct/incorrect)
+        attempts = attempts - 1
+
+        # Check if the letter is in the secret word
+        if user_letter.lower() in secret_word.lower():
+            print(f"Yes! '{user_letter}' is in the word.")
+        else:
+            print(f"Sorry, '{user_letter}' is not in the word.")
+
+    else:
+        print("Invalid input. Please enter a single letter.")
+
+print("---")
+print("Game Over! You have used all your attempts.")
