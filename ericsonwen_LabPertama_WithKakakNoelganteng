@@ -1,0 +1,56 @@
+print ("Welcome to guessing game, try to guess the secret word by putting letters!")
+
+def updatingText(secret_word, guessing_letters, current_guesses):
+    display_word = ""
+    for letter in secret_word:
+        if letter.lower() in guessing_letters: 
+            display_word += letter + " " 
+        elif letter == " ":
+            display_word += "  " 
+                                
+        else:
+            display_word += "_"
+    return display_word
+def game_commence():
+    secret_word = "ericson"
+    guessing_letters = []
+    incorrect_attempts_made = 0
+    max_chance = 6
+
+
+    while incorrect_attempts_made < max_chance:
+        current_guesses = updatingText(secret_word, guessing_letters, "")
+        print("Current word: ", current_guesses)
+        guess = input("Guess a letter: ").lower()
+
+# IF PLAYER GUESSED CORRECTLY TOO
+        if guess in secret_word:
+            guessing_letters.append(guess) # append is used to add the guess to the list
+            print("Good guess!")
+
+# IF PLAYER GUESSED WRONG
+        else:
+            incorrect_attempts_made += 1
+            print("Booooo. You have:", max_chance - incorrect_attempts_made, "chances left.")
+
+# IF PLAYER WON 
+        if "_" not in updatingText(secret_word, guessing_letters, ""):
+            print("Congratulations! You've guessed the word:", secret_word)
+            print("Attempts made:" + str(incorrect_attempts_made) + "/6")
+            return # exits
+
+    else:
+        print("Awh Dang it! you've run out of chances. The word was:", secret_word + " | " + str(incorrect_attempts_made) + "/6")
+# This is so that it shows u lost + mistakes made + what the word was
+
+# This is the main loop, when you fail, you can retry here, writing y can bring u back
+# While is the loop and if it were true the game can commence again
+# It breaks if it isnt y, hence: !=
+
+while True:
+    game_commence()
+
+    retry = input("\nRetry? (y/n): ").lower()
+    if retry != 'y':
+        print("Thanks for playing!")
+        break
